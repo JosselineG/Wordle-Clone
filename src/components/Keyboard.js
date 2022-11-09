@@ -13,9 +13,11 @@ function Keyboard() {
 
 return (
     <div className='keyBoard'>
-        <button>
-           b
+        {alphabet.map((alphabet,index)=>(
+        <button key={alphabet} className='buttonBox' >    
         </button>
+
+        ))}
     </div>
   )
 }

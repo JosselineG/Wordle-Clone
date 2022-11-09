@@ -1,5 +1,18 @@
 .keyBoard{
-    background-color: grey;
-    color: black;
+   width: 40%;
+   height: 30vh;
+    
 }
 
+.buttonBox{
+    background-color:silver;
+    border: 0px;
+    border-radius: 4px;
+    color: white;
+    width: 40px;
+    height: 50px;
+
+    margin: 4px;
+    padding: 2px;
+
+}
