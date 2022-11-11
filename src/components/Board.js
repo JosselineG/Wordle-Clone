@@ -30,7 +30,7 @@ function Board() {
         <div className='Body'>
             <div className="Table">
 
-                <table className="tableBoxes" onEmptied={"show"}>
+                <table className="tableBoxes" >
                 
                 <tr><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td></tr>
                 <tr><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td></tr>
