@@ -1,34 +1,35 @@
-import React from 'react'
+import React, { useState }  from 'react'
+import Keyboard from './Keyboard';
+import BoardTable from './BoardTable'
 
-function BoardInput() {
+function BoardInput(props) {
 
-const [userInput, setUserInput] = 
-useState({Input:[{id:'1',letter:'A' }]})
+const [userInput, setUserInput] = useState("")
 
 
-const handleChange=(e)=>{
-    e.preventDefault();
-    setUserInput({...userInput,[e.target.name]:e.target.value})
-   
-}
 const handleClick=(e)=>{
     e.preventDefault();
+    setUserInput(props.handleClick)
+    console.log(userInput)
 }
 
 
-const handleSubmit=(e)=>{
+/* const handleSubmit=(e)=>{
     console.log(userInput)
     e.preventDefault();
-}
+} */
 
   return (
     <div>
-        <input 
-        type={"text"} 
-        >
+       <button
+      
+          onClick={handleClick}
+      
+         >
         
-        </input>
-
+        </button>
+        <BoardTable onClick={handleClick} handleClick={userInput} /> 
+   
     </div>
   )
 }
