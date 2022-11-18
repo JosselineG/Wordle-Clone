@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import BoardTable from './BoardTable'
 import './Keyboard.css'
 import BoardInput from './BoardInput'
+import { click } from '@testing-library/user-event/dist/click'
+import { isClickableInput } from '@testing-library/user-event/dist/utils'
 
 
 function Keyboard(props) {
@@ -12,38 +14,43 @@ function Keyboard(props) {
       'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
       'Z', 'X', 'C', 'V', 'B', 'N', 'M'])
 
-      
-const [userInput, setUserInput] = useState([''],[''],[''],[''],[''],
-                                          [''],[''],[''],[''],[''],
-                                          [''],[''],[''],[''],[''],
-                                          [''],[''],[''],[''],[''],
-                                          [''],[''],[''],[''],[''],
-                                          [''],[''],[''],[''],[''])
 
+  const [userInput, setUserInput] = useState("")
+  const [userId, setUserId] = useState(0)
 
+  
 
   const handleChange = (e) => {
     e.preventDefault()
-    setAlphabet(...alphabet, e.target.value)
+    setAlphabet(...alphabet,[e.target.name])
   }
+
+
 
   const handleClick = (e) => {
     e.preventDefault();
-
-    setUserInput(e.target.value)
-
-
-    console.log("Clicked", e.target.value)
    
- 
+
+  
+     
+
+    setUserId(userId + 1)
+     setUserInput(e.target.name)
+     console.log("clicked",userInput,userId)
+
+     /* console.log("Clicked", e.target.name,id) */
+
+
   }
 
+  
+ 
 
   return (
     <div className='keyBoard'>
 
-<BoardTable clickData={userInput} /> 
-   
+      <BoardTable  clickData={userInput} clickId={userId} />
+
       {/*Below we loop through the alphabet array using the javascript map() function.
     We return a <button> element for each item. */}
 
@@ -56,7 +63,8 @@ const [userInput, setUserInput] = useState([''],[''],[''],[''],[''],
           key={index}
           onClick={handleClick}
           onChange={handleChange}
-          value={letter}
+          name={letter}
+        
           className='buttonBox' >
           {letter}
         </button>
