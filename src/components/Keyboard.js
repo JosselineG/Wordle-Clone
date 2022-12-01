@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import BoardTable from './BoardTable'
 import './Keyboard.css'
-import BoardInput from './BoardInput'
-import { click } from '@testing-library/user-event/dist/click'
-import { isClickableInput } from '@testing-library/user-event/dist/utils'
 
 
 function Keyboard(props) {
@@ -15,41 +12,40 @@ function Keyboard(props) {
       'Z', 'X', 'C', 'V', 'B', 'N', 'M'])
 
 
-  const [userInput, setUserInput] = useState("")
   const [userId, setUserId] = useState(0)
 
-  
+  const [userInput, setUserInput] = useState("")
+
+
 
   const handleChange = (e) => {
     e.preventDefault()
-    setAlphabet(...alphabet,[e.target.name])
+    setAlphabet(...alphabet, [e.target.name])
   }
 
 
 
   const handleClick = (e) => {
     e.preventDefault();
-   
-
-  
-     
 
     setUserId(userId + 1)
-     setUserInput(e.target.name)
-     console.log("clicked",userInput,userId)
+   setUserInput(e.target.name)
 
-     /* console.log("Clicked", e.target.name,id) */
+   
 
 
+    console.log("clicked", userInput, userId)
   }
 
-  
- 
+
+
+
+
 
   return (
     <div className='keyBoard'>
 
-      <BoardTable  clickData={userInput} clickId={userId} />
+      <BoardTable clickData={userInput} clickId={userId} />
 
       {/*Below we loop through the alphabet array using the javascript map() function.
     We return a <button> element for each item. */}
@@ -58,13 +54,12 @@ function Keyboard(props) {
       Keys should be given to the elements inside the array to give the elements
     a stable identity. We use the index as a key since we don't have stable ID's for each element. */}
       {alphabet.map((letter, index) => (
-
+        
         <button
           key={index}
           onClick={handleClick}
           onChange={handleChange}
           name={letter}
-        
           className='buttonBox' >
           {letter}
         </button>

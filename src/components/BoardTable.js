@@ -2,79 +2,72 @@ import React, { useState } from "react";
 import './BoardTable.css'
 
 
-function BoardTable(props){
+function BoardTable(props) {
+
+    const [rows, setRows] = useState
+      ([["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""],
+        ["", "", "", "", ""]])
+
    
+        for(let i =0;i<rows.length;i++){
+            for(let y =0; y < rows.length;y++){
 
-/*     const [row, setRow] = useState 
-    ([props.clickData, props.clickData, props.clickData, props.clickData, props.clickData,
-        props.clickData, props.clickData, props.clickData, props.clickData, props.clickData,
-    props.clickData, props.clickData, props.clickData, props.clickData, props.clickData, 
-    props.clickData, props.clickData, props.clickData, props.clickData,props.clickData, 
-    props.clickData, props.clickData, props.clickData, props.clickData, props.clickData, 
-    props.clickData,props.clickData,props.clickData,props.clickData,props.clickData]) */
-/*     
-  
-       const TableBody = (props) => {
-
-        console.log('This is coming from Props', props.clickData)
-
-         const rows = row.map((row, index) => { 
-
-        return (
-
-                   
-            <tbody>
-                <tr key={index}>
-                    <tr><td>{row.clickData}</td><td>{row.clickData}</td><td>{""}</td><td>{""}</td><td>{""}</td></tr>
-                    <tr><td>{row.clickData}</td><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td></tr>
-                    <tr><td>{row.clickData}</td><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td></tr>
-                    <tr><td>{row.clickData}</td><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td></tr>
-                    <tr><td>{row.clickData}</td><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td></tr>
-                    <tr><td>{row.clickData}</td><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td></tr>
-
-                </tr>
-
-            </tbody>
-        )
-            }) 
-            return <tbody>{rows}</tbody>;
-                
-    }
-
- 
-   */ 
+                if(rows[0][y] == ""){
+                    rows[0][y] = props.clickData
+                }else if(rows[0][i] != ""){
+                    rows[0][i+1] = props.clickData
+                }
+              
+            }
+           
+        }
+   
+    console.log(rows)
 
 
-   /*     const BoardTable = (props) => {
-            const { clickData, clickId } = props; */
     return (
         <div className='Body'>
-            <div className="Table">
-              {/*    <table className="tableBoxes">
-                    <TableBody clickData={clickData} clickId={clickId} />
-                </table>  */} 
-                 <table className="tableBoxes" >
+            <div  className='Table'>
+                 <table className="rowBoxes" >
+            
+                   
+         {/*                {rows1.map((row, index) => (
+                          
+                         
 
+                            <tr className="rowBoxes">
+                               <td>{row}</td>
+                            </tr>
+                         
+                        
+                         
+                        ))} */}
     
 
-                   <tr>
-
-
-                    <tr className="row1"><td id="1">{props.clickData}</td><td id="2">{props.clickData}</td><td  id="3">{props.clickData}</td><td  id="4">{props.clickData}</td><td  id="5">{props.clickData}</td></tr>
-                    <tr><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td></tr>
-                    <tr><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td></tr>
-                    <tr><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td></tr>
-                    <tr><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td></tr>
-                    <tr><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td><td>{""}</td></tr>
-                   
                   
 
+
+                    <tr>
+
+                        <tr className="row0"><td>{rows[0][0]}</td><td>{rows[0][1]}</td><td>{rows[0][2]}</td><td>{rows[0][3]}</td><td>{rows[0][4]}</td></tr>
+                        <tr className="row1"><td>{rows[1][0]}</td><td>{rows[1][1]}</td><td>{rows[1][2]}</td><td>{rows[1][3]}</td><td>{rows[1][4]}</td></tr>
+                        <tr className="row2"><td>{rows[2][0]}</td><td>{rows[2][1]}</td><td>{rows[2][2]}</td><td>{rows[2][3]}</td><td>{rows[2][4]}</td></tr>
+                        <tr className="row3"><td>{rows[3][0]}</td><td>{rows[3][1]}</td><td>{rows[3][2]}</td><td>{rows[3][3]}</td><td>{rows[3][4]}</td></tr>
+                        <tr className="row4"><td>{rows[4][0]}</td><td>{rows[4][1]}</td><td>{rows[4][2]}</td><td>{rows[4][3]}</td><td>{rows[4][4]}</td></tr>
+                        <tr className="row5"><td>{rows[5][0]}</td><td>{rows[5][1]}</td><td>{rows[5][2]}</td><td>{rows[5][3]}</td><td>{rows[5][4]}</td></tr>
+
                     </tr>
-                </table>   
+
+                </table>
             </div>
         </div>
     )
-            
+
+
 }
 
 export default BoardTable;
