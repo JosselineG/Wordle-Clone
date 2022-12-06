@@ -31,24 +31,41 @@
     float: left;
 
 }
-.rowBox{
-    border: 1px solid grey;
-    text-align: center;
-    color: black;
 
-    
-    width: 50px;
-    height: 50px;
+
+.Table{
    
+    width: 50%;
+    height: 60vh;
 
-    margin: 4px;
+    margin: 10px;
 
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
     
 }
+
+.Table h1{
+ 
+    margin: 0px;
+    padding: 0px;
+    
+}
+
+
+.table, td{
+    border: 1px solid grey;
+    text-align: center;
+    color: black;
+
+
+    width: 50px;
+    height: 50px;
+
+}
+  
 @media all and (max-width:721px) { 
     .keyBoard{
        width:80%;
