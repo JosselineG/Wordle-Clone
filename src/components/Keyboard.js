@@ -45,6 +45,11 @@ function Keyboard(props) {
       setNextRow(nextRow + 1) //increase the row position
       setletterPos(0) //and set the letter position back to 0
 
+    }else if(e.target.name ==  'DELETE'){
+
+      setletterPos(letterPos - 1)
+      userInput[nextRow][letterPos] = ''
+
     }else {
 
 
@@ -54,14 +59,15 @@ function Keyboard(props) {
       setletterPos(letterPos + 1)
 
     }
-    console.log("clicked", userInput, letterPos)
+     console.log("clicked", userInput, letterPos)
   }
 
 
   return (
     <div className='keyBoard'>
 
-      <BoardTable clickData={userInput} clickId={letterPos} />
+      <BoardTable clickData={userInput} clickId={letterPos} clickNextRow={nextRow} /> 
+
 
       {/*Below we loop through the alphabet array using the javascript map() function.
     We return a <button> element for each item. */}
