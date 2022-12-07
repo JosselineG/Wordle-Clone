@@ -3,8 +3,7 @@
     height: 60vh;
 
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     
     
@@ -13,15 +12,14 @@
 
 .Table{
    
-    width: 50%;
+    width: 60%;
     height: 60vh;
-
-    margin: 10px;
-
-
+    
     display: flex;
     justify-content: center;
     align-items: center;
+
+    margin: 10px;
     
 }
 
@@ -34,7 +32,7 @@
 
 
 .table, td{
-    border: 1px solid grey;
+    border: 1px solid #52796f;
     text-align: center;
     color: black;
 

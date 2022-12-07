@@ -1,46 +1,18 @@
 .keyBoard{
-   width: 40%;
-   height: 30vh;
+
+
+   width: 100%;
+   height: auto;
+   background-color: #cad2c5;
+
     
-   
 }
 
-.buttonBox{
-    background-color:silver;
-    border: 0px;
-    border-radius: 4px;
-    color: black;
-    width: 40px;
-    height: 50px;
-
-    margin: 4px;
-    
-
-}
-
-.buttonBoxEnter{
-    background-color:silver;
-    border: 0px;
-    border-radius: 4px;
-    color: black;
-    width: 70px;
-    height: 50px;
-
-    margin: 4px;
-    padding: 2px;
-
-    float: left;
-
-}
+.keyboardBody{
 
 
-.Table{
-   
-    width: 50%;
-    height: 60vh;
-
-    margin: 10px;
-
+    width: 100%;
+    height: 30vh;
 
     display: flex;
     justify-content: center;
@@ -48,27 +20,35 @@
     
 }
 
-.Table h1{
- 
-    margin: 0px;
-    padding: 0px;
+.sample{
+
     
+    width: 60%;
+    height: 30vh;
+    
+  
 }
 
 
-.table, td{
-    border: 1px solid grey;
-    text-align: center;
-    color: black;
-
-
-    width: 50px;
+.buttonBox{
+    background-color: #84a98c;
+    border: 1px solid black;
+    border-radius: 4px ;
+   
+    width: 40px;
     height: 50px;
 
+    margin: 4px;
+
+  font-size: 20px;
+
 }
-  
+
+
+
 @media all and (max-width:721px) { 
-    .keyBoard{
-       width:80%;
+    .keyboardBody{
+       width: 50%;
+       height: 40vh;
    } 
 }

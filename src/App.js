@@ -6,8 +6,6 @@ import Keyboard from './components/Keyboard';
 function App() {
   return (
     <div className="App">
-     <Navbar/>
-  
      <Keyboard/>
     </div>
   );
