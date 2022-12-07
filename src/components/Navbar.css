@@ -4,9 +4,7 @@
     background-color: #354f52;
     top: 0px;
     
-    
-
-
+    color: white;    
 
     display: flex;
     justify-content: center;
@@ -15,6 +13,7 @@
  
 
   .NavBar h1{
+    font-size: 30px;
     font-weight: 800;
     letter-spacing: 2px;
     margin: 0;

@@ -7,14 +7,12 @@ import './Keyboard.css'
 function Keyboard(props) {
 
   //Created an array of alphabet
-  const [alphabet, setAlphabet] = useState
-    (['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P',
-      'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L',
-      'ENTER', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'DELETE'])
-
-  /*       
-    const [enterMod, setEnterMod] = useState('ENTER')
-    const [deleteMod, setDeleteMod] = useState('DELETE') */
+  const [alphabet1, setAlphabet1] = useState
+    (['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'])
+  const [alphabet2, setAlphabet2] = useState
+    (['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'])
+  const [alphabet3, setAlphabet3] = useState
+    (['Z', 'X', 'C', 'V', 'B', 'N', 'M'])
 
 
   const [letterPos, setletterPos] = useState(0)
@@ -31,15 +29,16 @@ function Keyboard(props) {
 
   const handleChange = (e) => {
     e.preventDefault()
-    setAlphabet(...alphabet, [e.target.name])
-
+    setAlphabet1(...alphabet1, [e.target.name])
+    setAlphabet2(...alphabet2, [e.target.name])
+    setAlphabet3(...alphabet2, [e.target.name])
   }
-
 
 
   const handleClick = (e) => {
 
     e.preventDefault();
+
 
     //if user has enter all 5 letter and clicks enter, continue to next if statement
     if (e.target.name == 'ENTER') {
@@ -50,9 +49,10 @@ function Keyboard(props) {
       setNextRow(nextRow + 1) //increase the row position
       setletterPos(0) //and set the letter position back to 0
 
+
     } else if (e.target.name == 'DELETE') { //if user wants to delete a letter, continue to next function
 
-    
+      if (letterPos < 1) return;
       setletterPos(letterPos - 1)// it will go back to the previous letter position; 
       userInput[nextRow][letterPos - 1] = '' //and it will set that position into a blank space for a new letter
 
@@ -86,29 +86,86 @@ function Keyboard(props) {
     a stable identity. We use the index as a key since we don't have stable ID's for each element. */}
 
         <div className='keyboardBody'>
-          <div className='sample'>
-          {alphabet.map((letter, index) => (
 
+
+          <div className='test1'>
+
+            {alphabet1.map((letter, index) => (
+
+              <button
+                key={index}
+                onClick={handleClick}
+                onChange={handleChange}
+                name={letter}
+                className='buttonBox' >
+                {letter}
+              </button>
+
+
+            ))}
+
+          </div>
+          <div className='test2'>
+            {alphabet2.map((letter, index) => (
+
+              <button
+                key={index}
+                onClick={handleClick}
+                onChange={handleChange}
+                name={letter}
+                className='buttonBox' >
+
+                {letter}
+              </button>
+
+
+            ))}
+          </div>
+
+
+          <div className='test3'>
             <button
-              key={index}
+
               onClick={handleClick}
               onChange={handleChange}
-              name={letter}
-              className='buttonBox' >
-              {letter}
+              name='ENTER'
+              className='buttonBoxD'
+              >
+              ENTER
             </button>
 
+            {alphabet3.map((letter, index) => (
 
-          ))}
-</div>
+
+              <button
+                key={index}
+                onClick={handleClick}
+                onChange={handleChange}
+                name={letter}
+                className='buttonBox' >
+                {letter}
+              </button>
+
+
+            ))}
+
+            <button
+
+              onClick={handleClick}
+              onChange={handleChange}
+              name='DELETE'
+              className='buttonBoxD'>
+              DELETE
+            </button>
+
+          </div>
+
         </div>
-        {/*     <button
-          onClick={handleClick}
-          onChange={handleChange}
-          className='buttonBox' >
-          {deleteMod}
-        </button> */}
       </div>
+
+
+
+
     </div>
   )
 }
