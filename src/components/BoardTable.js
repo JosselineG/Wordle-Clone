@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import './BoardTable.css'
 
@@ -6,7 +5,6 @@ import './BoardTable.css'
 function BoardTable(props) {
 
     const [board, setBoard] = useState(props.clickData)
-
 
 
     return (

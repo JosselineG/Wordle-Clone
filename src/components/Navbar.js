@@ -6,7 +6,7 @@ function Navbar() {
     return (
         <nav className="NavBar">
             <div className='Components'>
-                <h1>Wordle</h1>
+                <h1>Wordle ESP</h1>
             </div>
         </nav>
     )

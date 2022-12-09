@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import BoardTable from './BoardTable'
 import Navbar from './Navbar'
 import './Keyboard.css'
-
+import {listOfWords} from './test'
+import Words from './Words'
 
 function Keyboard(props) {
 
-  //Created an array of alphabet
+  //array of alphabet
   const [alphabet1, setAlphabet1] = useState
     (['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'])
   const [alphabet2, setAlphabet2] = useState
@@ -17,7 +18,6 @@ function Keyboard(props) {
 
   const [letterPos, setletterPos] = useState(0)
   const [nextRow, setNextRow] = useState(0)
-
   const [userInput, setUserInput] = useState
     ([['', '', '', '', ''],
     ['', '', '', '', ''],
@@ -25,6 +25,10 @@ function Keyboard(props) {
     ['', '', '', '', ''],
     ['', '', '', '', ''],
     ['', '', '', '', '']])
+    
+
+    const [word, setWord] = useState(listOfWords[Math.floor(Math.random() * listOfWords.length)])//word that will be used to guess
+    const [guess, setGuess] = useState("")
 
 
   const handleChange = (e) => {
@@ -43,6 +47,11 @@ function Keyboard(props) {
     //if user has enter all 5 letter and clicks enter, continue to next if statement
     if (e.target.name == 'ENTER') {
 
+      if(word == guess){
+        console.log("Matching Words")
+      }else{
+        console.log("Different Words")
+      }
 
       if (letterPos !== 5) return; //if letter position is 5 we should stop return and end function 
 
@@ -64,8 +73,10 @@ function Keyboard(props) {
       setUserInput(userInput)
       setletterPos(letterPos + 1)
 
+      setGuess(userInput[nextRow].join(""))//WITH THE .JOIN WE remove the commas and we set the users guess into the setguess()
+
     }
-    console.log("clicked", userInput, letterPos)
+    console.log("clicked", userInput, letterPos,word)
   }
 
 
@@ -73,7 +84,7 @@ function Keyboard(props) {
     <div className='navigator'>
 
       <Navbar />
-
+      <Words clickguess={guess}/>
       <div className='keyBoard'>
         <BoardTable clickData={userInput} clickId={letterPos} clickNextRow={nextRow} />
 
