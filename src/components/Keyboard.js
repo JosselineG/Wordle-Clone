@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import BoardTable from './BoardTable'
 import Navbar from './Navbar'
 import './Keyboard.css'
-import {listOfWords} from './test'
-import Words from './Words'
+import { listOfWords } from './test'
+
 
 function Keyboard(props) {
 
@@ -16,8 +16,8 @@ function Keyboard(props) {
     (['Z', 'X', 'C', 'V', 'B', 'N', 'M'])
 
 
-  const [letterPos, setletterPos] = useState(0)
-  const [nextRow, setNextRow] = useState(0)
+  const [letterPos, setletterPos] = useState(0) //letter position starting at 0
+  const [nextRow, setNextRow] = useState(0) //row position starting at 0
   const [userInput, setUserInput] = useState
     ([['', '', '', '', ''],
     ['', '', '', '', ''],
@@ -25,11 +25,11 @@ function Keyboard(props) {
     ['', '', '', '', ''],
     ['', '', '', '', ''],
     ['', '', '', '', '']])
-    
 
-    const [word, setWord] = useState(listOfWords[Math.floor(Math.random() * listOfWords.length)])//word that will be used to guess
-    const [guess, setGuess] = useState("")
 
+  const [word, setWord] = useState(listOfWords[Math.floor(Math.random() * listOfWords.length)])//word that will be used to guess
+  const [guess, setGuess] = useState("")
+ 
 
   const handleChange = (e) => {
     e.preventDefault()
@@ -39,19 +39,16 @@ function Keyboard(props) {
   }
 
 
+
   const handleClick = (e) => {
 
     e.preventDefault();
 
+    /*************************************************************************** */
 
     //if user has enter all 5 letter and clicks enter, continue to next if statement
-    if (e.target.name == 'ENTER') {
+    if (e.target.name === 'ENTER') {
 
-      if(word == guess){
-        console.log("Matching Words")
-      }else{
-        console.log("Different Words")
-      }
 
       if (letterPos !== 5) return; //if letter position is 5 we should stop return and end function 
 
@@ -59,34 +56,82 @@ function Keyboard(props) {
       setletterPos(0) //and set the letter position back to 0
 
 
-    } else if (e.target.name == 'DELETE') { //if user wants to delete a letter, continue to next function
+     
+
+      
+      if (word === guess) { //This is if the user guesses the whole word 
+        console.log("ON POINT")
+        alert("Felicidades!!!")
+
+      
+      } else { //if users guesses word wrong message will appear
+
+        console.log("Wrong!")
+
+      }
+
+
+
+      for(let i =0;i<5;i++){
+        if(word[i] === guess[i]){ // checks value inside each index if match than should console log the following
+      
+
+
+
+
+
+         /*TODO: Should set the index of that mathcing element to green */
+
+
+
+         
+
+
+          console.log("Letter Match" + word[i])
+        }
+       } 
+    
+  }
+    /*************************************************************************** */
+
+    else if (e.target.name == 'DELETE') { //if user wants to delete a letter, continue to next function
 
       if (letterPos < 1) return;
       setletterPos(letterPos - 1)// it will go back to the previous letter position; 
       userInput[nextRow][letterPos - 1] = '' //and it will set that position into a blank space for a new letter
 
-    } else {
+    }
 
+    /*************************************************************************** */
 
+    else {
+    
       if (letterPos > 4) return; //if current letter position is greater than 4 we should stop return and end the function.
       userInput[nextRow][letterPos] = e.target.name
       setUserInput(userInput)
-      setletterPos(letterPos + 1)
-
-      setGuess(userInput[nextRow].join(""))//WITH THE .JOIN WE remove the commas and we set the users guess into the setguess()
-
+     setletterPos(letterPos + 1)
+  
+   
+     
+     setGuess(userInput[nextRow].join(""))//WITH THE .JOIN WE remove the commas and convert it into a string, we set the users guess into the setguess()
+   
+  
+   
     }
-    console.log("clicked", userInput, letterPos,word)
+    console.log("clicked", userInput, letterPos ,word, guess)
+  
   }
+
+
 
 
   return (
     <div className='navigator'>
 
       <Navbar />
-      <Words clickguess={guess}/>
+
       <div className='keyBoard'>
-        <BoardTable clickData={userInput} clickId={letterPos} clickNextRow={nextRow} />
+        <BoardTable  clickData={userInput} />
 
 
         {/*Below we loop through the alphabet array using the javascript map() function.
@@ -141,7 +186,7 @@ function Keyboard(props) {
               onChange={handleChange}
               name='ENTER'
               className='buttonBoxD'
-              >
+            >
               ENTER
             </button>
 

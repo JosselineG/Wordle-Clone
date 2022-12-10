@@ -6,7 +6,8 @@ function BoardTable(props) {
 
     const [board, setBoard] = useState(props.clickData)
 
-
+    
+   
     return (
         <div className='Body'>
             <div className='Table'>
@@ -20,7 +21,7 @@ function BoardTable(props) {
 
                                     <td key={idx}>
                                         
-                                        <h1>{col}</h1>
+                                        <h1  >{col}</h1>
                                     
                                     </td>
 

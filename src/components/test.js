@@ -1,11 +1,20 @@
 export const listOfWords =
  ["ABIAR",
+ "HUEVO",
  "ABOBE",
  "ABECE",
+ "GATEO",
  "ABRIL",
+ "HUESO",
  "ABRIR",
  "ABRIA",
- "ABRIS"]
+ "JUGAR",
+ "ABRIS",
+ "GATEA",
+ "VACAS",
+ "GANEN",
+ "GASES",
+ "JALEA"]
  
 
  
