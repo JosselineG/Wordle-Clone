@@ -29,9 +29,11 @@ function Keyboard(props) {
 
   const [word, setWord] = useState(listOfWords[Math.floor(Math.random() * listOfWords.length)])//word that will be used to guess
   const [guess, setGuess] = useState("")
- 
 
-  const handleChange = (e) => {
+
+ const [isMatching,setIsMatching] = useState(false)
+ 
+ const handleChange = (e) => {
     e.preventDefault()
     setAlphabet1(...alphabet1, [e.target.name])
     setAlphabet2(...alphabet2, [e.target.name])
@@ -46,52 +48,71 @@ function Keyboard(props) {
 
     /*************************************************************************** */
 
-    //if user has enter all 5 letter and clicks enter, continue to next if statement
+    //if user has clicks enter, continue to next if statement
     if (e.target.name === 'ENTER') {
-
-
-      if (letterPos !== 5) return; //if letter position is 5 we should stop return and end function 
+   
+ 
+      if (letterPos !== 5) return; //Once User has enter all 5 letter we should stop return and end function 
 
       setNextRow(nextRow + 1) //increase the row position
       setletterPos(0) //and set the letter position back to 0
 
 
-     
+      for(let i =0;i<5;i++){
+        if(word[i] === guess[i]){
+  
+          
+      
+        setIsMatching(true)
+
+ 
+          setUserInput(userInput[nextRow][i])
+       
+    
+              
+      
+          console.log("Letter Match: " + userInput[nextRow][i]  )
+      
+        }
+      } 
 
       
-      if (word === guess) { //This is if the user guesses the whole word 
+     
+      /* if (word === guess) { //This is if the user guesses the whole word 
         console.log("ON POINT")
         alert("Felicidades!!!")
 
       
-      } else { //if users guesses word wrong message will appear
+
+      }  else if(word[letterPos] === userInput[nextRow][letterPos]){
+
+        setUserInput(userInput[nextRow][letterPos] )
+       
+            
+    
+        console.log("Letter Match: " + userInput[nextRow][letterPos]  )
+    
+    
+      }  else { //if users guesses word wrong message will appear
 
         console.log("Wrong!")
 
       }
+      */
+     /*  for(let i =0;i<5;i++){
+      if(word[i] === guess[i]){
 
-
-
-      for(let i =0;i<5;i++){
-        if(word[i] === guess[i]){ // checks value inside each index if match than should console log the following
-      
-
-
-
-
-
-         /*TODO: Should set the index of that mathcing element to green */
-
-
-
-         
-
-
-          console.log("Letter Match" + word[i])
-        }
-       } 
+        
+        setUserInput(userInput[nextRow][i])
+     
+            
     
-  }
+        console.log("Letter Match: " + userInput[nextRow][i]  )
+    
+      }
+      } */
+    
+  } 
     /*************************************************************************** */
 
     else if (e.target.name == 'DELETE') { //if user wants to delete a letter, continue to next function
@@ -111,14 +132,13 @@ function Keyboard(props) {
       setUserInput(userInput)
      setletterPos(letterPos + 1)
   
-   
+    
      
      setGuess(userInput[nextRow].join(""))//WITH THE .JOIN WE remove the commas and convert it into a string, we set the users guess into the setguess()
    
-  
-   
+
     }
-    console.log("clicked", userInput, letterPos ,word, guess)
+    console.log("clicked" , userInput, letterPos , word, guess)
   
   }
 
@@ -131,7 +151,7 @@ function Keyboard(props) {
       <Navbar />
 
       <div className='keyBoard'>
-        <BoardTable  clickData={userInput} />
+        <BoardTable isMatching={isMatching} clickData={userInput} guess={guess} word={word}/>
 
 
         {/*Below we loop through the alphabet array using the javascript map() function.
