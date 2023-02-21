@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import BoardTable from './BoardTable'
 import Navbar from './Navbar'
 import './Keyboard.css'
 import { listOfWords } from './test'
-import { isDisabled } from '@testing-library/user-event/dist/utils'
 
 
-function Keyboard(props) {
+function Keyboard() {
 
   //array of alphabet
   const [alphabet1, setAlphabet1] = useState
@@ -54,52 +53,31 @@ function Keyboard(props) {
     //if user has clicks enter, continue to next if statement
     if (e.target.name === 'ENTER') {
 
-
       if (letterPos !== 5) return; //Once User has enter all 5 letter we should stop return and end function 
-
 
       setGuess(userInput[nextRow].join(""))
 
+      
+      //ChecksOUT 1. Checks if the whole word matches & return so it stops the whole function; 
+      if (userInput[nextRow].join("") === word) {
 
-      //ChecksOUT 1. Checks if the whole word matches & return so it stops the whole function;
-      if (guess === word) {
-
-        console.log("100% Correcto")
-        return;
-
-        //2. checks if they have the same letter in the right position
-      } else if (userInput[nextRow] === word[nextRow]) {
-
-        console.log(userInput[nextRow], Array.from(word))//getting undefined
-
-
-        console.log("right letter,right position")
-        setGuess(userInput[nextRow])
-        setNextRow(nextRow + 1) //increase the row position
+        setIsMatching(true)
+        return alert("guessed correctly");
         
-        
-        //ChecksOUT 3. checks if the word includes the same letters as the but in the wrong position
-      } else if (word.includes(guess)) {
-        console.log("right letter,wrong position")
-     
-
-        //ChecksOUT 4. checks if the whole word is wrong.("gray") 
-      } else {
-        console.log("is not matching")
       }
 
 
       setNextRow(nextRow + 1) //increase the row position
       setletterPos(0) //and set the letter position back to 0
 
-      /*   setGuess(userInput[nextRow])//WITH THE .JOIN WE remove the commas and convert it into a string, we set the users guess into the setguess() 
-        */
+      
+      ///WITH THE .JOIN WE remove the commas and convert it into a string, we set the users guess into the setguess() 
 
 
     }
     /*************************************************************************** */
 
-    else if (e.target.name == 'DELETE') { //if user wants to delete a letter, continue to next function
+    else if (e.target.name === 'DELETE') { //if user wants to delete a letter, continue to next function
 
       if (letterPos < 1) return;
       setletterPos(letterPos - 1)// it will go back to the previous letter position; 
@@ -121,11 +99,15 @@ function Keyboard(props) {
     }
 
 
-    console.log("clicked", userInput[0], word, guess, nextRow)
-
   }
 
 
+  useEffect(() => {
+
+    console.log("clicked", userInput[nextRow], word, letterPos, guess, nextRow, isMatching)
+
+
+  })
 
 
   return (
