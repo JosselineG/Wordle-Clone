@@ -1,17 +1,10 @@
-import React, {useEffect } from "react";
+import React from "react";
 import './BoardTable.css'
 
 
 function BoardTable(props) {
 
 
-    useEffect(() => {
-
-        console.log("inside board table" , props.guess,  props.word, props.nextRow,  props.isMatching)
-    
-
-    
-      }) 
 
     return (
 
@@ -29,14 +22,14 @@ function BoardTable(props) {
                              
                                 style={{
                                     backgroundColor: props.isMatching && props.nextRow === index 
-                                         ? 'green'
-                                        :(props.guess[idx] === props.word[idx]) && props.nextRow === index
-                                            ? 'green'
-                                            :props.word.includes(props.guess[idx]) && props.nextRow === index
+                                            ?'green'
+                                            :(props.guess[idx] === props.word[idx]) && props.prevRow === index
+                                            ?'green'
+                                            :props.word.includes(props.guess[idx]) && props.prevRow === index
                                             ?'yellow'
-                                            : 'transparent'
+                                            :'transparent'
                                 }}>
-
+                                    
                                 {col}
                             </div>
 

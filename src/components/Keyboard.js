@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import BoardTable from './BoardTable'
 import Navbar from './Navbar'
 import './Keyboard.css'
-import { listOfWords } from './test'
+import { listOfWords } from './spanish-word'
 
 
 function Keyboard() {
@@ -18,6 +18,9 @@ function Keyboard() {
 
   const [letterPos, setletterPos] = useState(0) //letter position starting at 0
   const [nextRow, setNextRow] = useState(0) //row position starting at 0
+
+  const [prevRow, setprevRow] = useState(0) //previous row position starting at 0
+
   const [userInput, setUserInput] = useState
     ([['', '', '', '', ''],
     ['', '', '', '', ''],
@@ -27,7 +30,7 @@ function Keyboard() {
     ['', '', '', '', '']])
 
 
-  const [word, setWord] = useState(listOfWords[Math.floor(Math.random() * listOfWords.length)])//word that will be used to guess
+  const [word] = useState(listOfWords[Math.floor(Math.random() * listOfWords.length)])//word that will be used to guess
   const [guess, setGuess] = useState("")
   const [isMatching, setIsMatching] = useState(false);
 
@@ -53,9 +56,9 @@ function Keyboard() {
     //if user has clicks enter, continue to next if statement
     if (e.target.name === 'ENTER') {
 
-      if (letterPos !== 5) return; //Once User has enter all 5 letter we should stop return and end function 
+      if (letterPos !== 5 ) return; //Once User has enter all 5 letter we should stop return and end function 
 
-      setGuess(userInput[nextRow].join(""))
+   //NEED TO FIX WHEN THERE ARE DOUBLE LETTERS
 
       
       //ChecksOUT 1. Checks if the whole word matches & return so it stops the whole function; 
@@ -64,13 +67,24 @@ function Keyboard() {
         setIsMatching(true)
         return alert("guessed correctly");
         
+      }else if(nextRow + 1 > 5){
+
+        return alert("You Lost!", word)
+
+      }else{
+        setGuess(userInput[nextRow].join(""))
+
       }
 
-
+      
+   
+      
+      setprevRow(nextRow)
       setNextRow(nextRow + 1) //increase the row position
       setletterPos(0) //and set the letter position back to 0
 
       
+     
       ///WITH THE .JOIN WE remove the commas and convert it into a string, we set the users guess into the setguess() 
 
 
@@ -87,14 +101,13 @@ function Keyboard() {
 
     /*************************************************************************** */
 
+
     else {
 
-      if (letterPos > 4) return; //if current letter position is greater than 4 we should stop return and end the function.
+      if (letterPos > 4 ) return; //if current letter position is greater than 4 we should stop return and end the function.
       userInput[nextRow][letterPos] = e.target.name
       setUserInput(userInput)
       setletterPos(letterPos + 1)
-
-
 
     }
 
@@ -104,7 +117,7 @@ function Keyboard() {
 
   useEffect(() => {
 
-    console.log("clicked", userInput[nextRow], word, letterPos, guess, nextRow, isMatching)
+    console.log("Word:", word, "UserInput:", guess)
 
 
   })
@@ -116,7 +129,7 @@ function Keyboard() {
       <Navbar />
 
       <div className='keyBoard'>
-        <BoardTable isMatching={isMatching} letterPos={letterPos} nextRow={nextRow} clickData={userInput} guess={guess} word={word} />
+        <BoardTable isMatching={isMatching} prevRow={prevRow} letterPos={letterPos} nextRow={nextRow} clickData={userInput} guess={guess} word={word} />
 
 
         {/*Below we loop through the alphabet array using the javascript map() function.

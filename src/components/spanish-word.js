@@ -1,4 +1,4 @@
-export const wordList = ["ABIAR",
+export const listOfWords = ["ABIAR",
 "ABOBE",
 "ABECÉ",
 "ABRIL",
