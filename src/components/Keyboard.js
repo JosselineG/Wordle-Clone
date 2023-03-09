@@ -33,11 +33,14 @@ function Keyboard() {
   const [word] = useState(listOfWords[Math.floor(Math.random() * listOfWords.length)])//word that will be used to guess
   const [guess, setGuess] = useState("")
   const [isMatching, setIsMatching] = useState(false);
-
+  const [disabled, setDisabled] = useState("");
+  const [yellow, setYellow] = useState("");
+  const [green, setGreen] = useState("");
 
 
   const handleChange = (e) => {
     e.preventDefault()
+
     setAlphabet1(...alphabet1, [e.target.name])
     setAlphabet2(...alphabet2, [e.target.name])
     setAlphabet3(...alphabet2, [e.target.name])
@@ -50,41 +53,67 @@ function Keyboard() {
     e.preventDefault();
 
 
-
     /*************************************************************************** */
 
     //if user has clicks enter, continue to next if statement
     if (e.target.name === 'ENTER') {
 
-      if (letterPos !== 5 ) return; //Once User has enter all 5 letter we should stop return and end function 
+      if (letterPos !== 5) return; //Once User has enter all 5 letter we should stop return and end function 
 
-   //NEED TO FIX WHEN THERE ARE DOUBLE LETTERS
 
-      
+
       //ChecksOUT 1. Checks if the whole word matches & return so it stops the whole function; 
+
+
       if (userInput[nextRow].join("") === word) {
 
         setIsMatching(true)
         return alert("guessed correctly");
-        
-      }else if(nextRow + 1 > 5){
+
+      } else if (nextRow + 1 > 5) {
 
         return alert("You Lost!", word)
 
-      }else{
+      } else {
         setGuess(userInput[nextRow].join(""))
 
       }
 
-      
-   
-      
+
+      //NEED TO FIX: IF THERE ARE TWO INCORRECT LETTERS, BUTTON SHOULD DISABLE BOTH OF THEM, BUT I'M ONLY GETTING ONE
+
+
+      for (let i = 0; i < 5; i++) {
+
+
+        if (userInput[nextRow][i] === word[i]) {
+
+          console.log("green")
+          setGreen(userInput[nextRow][i])
+
+        } else if (word.includes(userInput[nextRow][i])) {
+
+          setYellow(userInput[nextRow][i])
+          console.log("yellow")
+
+        } else if (userInput[nextRow][i] !== word[i] && !word.includes(userInput[nextRow][i])) {
+
+          setDisabled(userInput[nextRow][i])
+          console.log("gray")
+
+        }
+      }
+
+
+
+
+
       setprevRow(nextRow)
       setNextRow(nextRow + 1) //increase the row position
       setletterPos(0) //and set the letter position back to 0
 
-      
-     
+
+
       ///WITH THE .JOIN WE remove the commas and convert it into a string, we set the users guess into the setguess() 
 
 
@@ -102,14 +131,19 @@ function Keyboard() {
     /*************************************************************************** */
 
 
+
     else {
 
-      if (letterPos > 4 ) return; //if current letter position is greater than 4 we should stop return and end the function.
+      if (letterPos > 4) return; //if current letter position is greater than 4 we should stop return and end the function.
       userInput[nextRow][letterPos] = e.target.name
       setUserInput(userInput)
       setletterPos(letterPos + 1)
 
+
     }
+
+
+
 
 
   }
@@ -117,7 +151,7 @@ function Keyboard() {
 
   useEffect(() => {
 
-    console.log("Word:", word, "UserInput:", guess)
+    console.log("Word:", word, "UserInput:", guess, "disabled:", disabled)
 
 
   })
@@ -150,11 +184,22 @@ function Keyboard() {
                 key={index}
                 onClick={handleClick}
                 onChange={handleChange}
+                disabled={disabled.includes(letter)}
                 name={letter}
-                className='buttonBox' >
+                className='buttonBox'
+                style={{
+
+                  backgroundColor: yellow.includes(letter)
+                    ? 'yellow'
+                    : green.includes(letter)
+                      ? 'green'
+                      : disabled.includes(letter)
+                        ? 'gray'
+                        : '#84a98c'
+                }}>
+
                 {letter}
               </button>
-
 
             ))}
 
@@ -166,8 +211,20 @@ function Keyboard() {
                 key={index}
                 onClick={handleClick}
                 onChange={handleChange}
+                disabled={disabled.includes(letter)}
                 name={letter}
                 className='buttonBox'
+
+                style={{
+                  backgroundColor:
+                    yellow.includes(letter)
+                      ? 'yellow'
+                      : green.includes(letter)
+                        ? 'green'
+                        : disabled.includes(letter)
+                          ? 'gray'
+                          : '#84a98c'
+                }}
               >
 
                 {letter}
@@ -196,8 +253,19 @@ function Keyboard() {
                 key={index}
                 onClick={handleClick}
                 onChange={handleChange}
+                disabled={disabled.includes(letter)}
                 name={letter}
-                className='buttonBox' >
+                className='buttonBox'
+                style={{
+                  backgroundColor:
+                    yellow.includes(letter)
+                      ? 'yellow'
+                      : green.includes(letter)
+                        ? 'green'
+                        : disabled.includes(letter)
+                          ? 'gray'
+                          : '#84a98c'
+                }} >
                 {letter}
               </button>
 
