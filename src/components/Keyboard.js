@@ -33,9 +33,9 @@ function Keyboard() {
   const [word] = useState(listOfWords[Math.floor(Math.random() * listOfWords.length)])//word that will be used to guess
   const [guess, setGuess] = useState("")
   const [isMatching, setIsMatching] = useState(false);
-  const [disabled, setDisabled] = useState("");
-  const [yellow, setYellow] = useState("");
-  const [green, setGreen] = useState("");
+  const [disabled, setDisabled] = useState([]);
+  const [yellow, setYellow] = useState([]);
+  const [green, setGreen] = useState([]);
 
 
   const handleChange = (e) => {
@@ -71,6 +71,8 @@ function Keyboard() {
         return alert("guessed correctly");
 
       } else if (nextRow + 1 > 5) {
+   
+       //NEED TO FIX: WHEN YOU LOSE IT ALLOWS ME TO DELETE MY ANSWER AND THAT SHOULD NOT BE ALLOW, IT SHOULD STOP GAME COMPLETLY.
 
         return alert("You Lost!", word)
 
@@ -80,7 +82,7 @@ function Keyboard() {
       }
 
 
-      //NEED TO FIX: IF THERE ARE TWO INCORRECT LETTERS, BUTTON SHOULD DISABLE BOTH OF THEM, BUT I'M ONLY GETTING ONE
+      //NEED TO FIX: CHANGE COLOR OF BUTTON FROM YELLOW TO GREEN WHEN IT'S POSITION CHANGES TO CORRECT POSITION
 
 
       for (let i = 0; i < 5; i++) {
@@ -89,22 +91,22 @@ function Keyboard() {
         if (userInput[nextRow][i] === word[i]) {
 
           console.log("green")
-          setGreen(userInput[nextRow][i])
+       setGreen(green => [...green, userInput[nextRow][i]])
+      
 
         } else if (word.includes(userInput[nextRow][i])) {
 
-          setYellow(userInput[nextRow][i])
+          setYellow(yellow => [...yellow, userInput[nextRow][i]])
           console.log("yellow")
+        
 
         } else if (userInput[nextRow][i] !== word[i] && !word.includes(userInput[nextRow][i])) {
 
-          setDisabled(userInput[nextRow][i])
+          setDisabled(disabled => [...disabled, userInput[nextRow][i]])
           console.log("gray")
 
         }
       }
-
-
 
 
 
@@ -138,10 +140,9 @@ function Keyboard() {
       userInput[nextRow][letterPos] = e.target.name
       setUserInput(userInput)
       setletterPos(letterPos + 1)
-
-
+     
+      
     }
-
 
 
 
@@ -152,6 +153,8 @@ function Keyboard() {
   useEffect(() => {
 
     console.log("Word:", word, "UserInput:", guess, "disabled:", disabled)
+    console.log(yellow)
+    console.log(green)
 
 
   })
@@ -190,7 +193,7 @@ function Keyboard() {
                 style={{
 
                   backgroundColor: yellow.includes(letter)
-                    ? 'yellow'
+                     ? 'yellow'
                     : green.includes(letter)
                       ? 'green'
                       : disabled.includes(letter)
@@ -217,7 +220,7 @@ function Keyboard() {
 
                 style={{
                   backgroundColor:
-                    yellow.includes(letter)
+                  yellow.includes(letter)
                       ? 'yellow'
                       : green.includes(letter)
                         ? 'green'
@@ -258,7 +261,7 @@ function Keyboard() {
                 className='buttonBox'
                 style={{
                   backgroundColor:
-                    yellow.includes(letter)
+                  yellow.includes(letter)
                       ? 'yellow'
                       : green.includes(letter)
                         ? 'green'
