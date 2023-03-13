@@ -70,13 +70,12 @@ function Keyboard() {
         setIsMatching(true)
         return alert("guessed correctly");
 
-      } else if (nextRow + 1 > 5) {
+      }else if (nextRow + 1 > 5) {
    
        //NEED TO FIX: WHEN YOU LOSE IT ALLOWS ME TO DELETE MY ANSWER AND THAT SHOULD NOT BE ALLOW, IT SHOULD STOP GAME COMPLETLY.
+        return alert("You Lost! Correct word was:" + " " + word);
 
-        return alert("You Lost!", word)
-
-      } else {
+      }else {
         setGuess(userInput[nextRow].join(""))
 
       }
@@ -91,13 +90,15 @@ function Keyboard() {
         if (userInput[nextRow][i] === word[i]) {
 
           console.log("green")
-       setGreen(green => [...green, userInput[nextRow][i]])
+          setGreen(green => [...green, userInput[nextRow][i]])
       
 
         } else if (word.includes(userInput[nextRow][i])) {
 
           setYellow(yellow => [...yellow, userInput[nextRow][i]])
           console.log("yellow")
+        
+
         
 
         } else if (userInput[nextRow][i] !== word[i] && !word.includes(userInput[nextRow][i])) {
@@ -114,6 +115,7 @@ function Keyboard() {
       setNextRow(nextRow + 1) //increase the row position
       setletterPos(0) //and set the letter position back to 0
 
+ 
 
 
       ///WITH THE .JOIN WE remove the commas and convert it into a string, we set the users guess into the setguess() 
@@ -122,7 +124,7 @@ function Keyboard() {
     }
     /*************************************************************************** */
 
-    else if (e.target.name === 'DELETE') { //if user wants to delete a letter, continue to next function
+    else if (e.target.name === 'DELETE' && nextRow < 5) { //if user wants to delete a letter, continue to next function
 
       if (letterPos < 1) return;
       setletterPos(letterPos - 1)// it will go back to the previous letter position; 
@@ -152,9 +154,8 @@ function Keyboard() {
 
   useEffect(() => {
 
-    console.log("Word:", word, "UserInput:", guess, "disabled:", disabled)
-    console.log(yellow)
-    console.log(green)
+    console.log("Word:", word, "UserInput:", guess)
+ 
 
 
   })
