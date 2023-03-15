@@ -15,18 +15,20 @@ function BoardTable(props) {
                 {props.clickData.map((row, index) => (
 
                     <div className="rows" key={index}>
-                        {index}
+                 
                         {row.map((col, idx) => (
 
                             <div className="letterBox" key={idx}
-                             
+                                   //NEED TO FIX: BOX SHOULD BE GRAYED OUT IF THE LETTER IS NOT PART OF THE WORD.
                                 style={{
-                                    backgroundColor: props.isMatching && props.nextRow === index 
+                                    backgroundColor: props.won && props.nextRow === index 
                                             ?'green'
                                             :(props.guess[idx] === props.word[idx]) && props.prevRow === index
                                             ?'green'
                                             :props.word.includes(props.guess[idx]) && props.prevRow === index
                                             ?'yellow'
+                                         /*    :(props.guess[idx] !== props.word[idx]) && props.prevRow === index 
+                                            ?'grey' */
                                             :'transparent'
                                 }}>
                                     

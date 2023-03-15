@@ -32,11 +32,12 @@ function Keyboard() {
 
   const [word] = useState(listOfWords[Math.floor(Math.random() * listOfWords.length)])//word that will be used to guess
   const [guess, setGuess] = useState("")
-  const [isMatching, setIsMatching] = useState(false);
+  const [won, setWon] = useState(false);
+  const [lost, setLost] = useState(false);
+
   const [disabled, setDisabled] = useState([]);
   const [yellow, setYellow] = useState([]);
   const [green, setGreen] = useState([]);
-
 
   const handleChange = (e) => {
     e.preventDefault()
@@ -60,20 +61,20 @@ function Keyboard() {
 
       if (letterPos !== 5) return; //Once User has enter all 5 letter we should stop return and end function 
 
+      //FIXED: ONCE YOU HIT ENTER YOU CAN'T DELETE
 
+      //Check 1. Checks if the whole word matches & return so it stops the whole function; 
 
-      //ChecksOUT 1. Checks if the whole word matches & return so it stops the whole function; 
+      if (userInput[nextRow].join("") === word ) {
 
+        setWon(true)
+        return alert("You Won!"); 
 
-      if (userInput[nextRow].join("") === word) {
-
-        setIsMatching(true)
-        return alert("guessed correctly");
-
-      }else if (nextRow + 1 > 5) {
+      }else if (nextRow >= 5) {
    
-       //NEED TO FIX: WHEN YOU LOSE IT ALLOWS ME TO DELETE MY ANSWER AND THAT SHOULD NOT BE ALLOW, IT SHOULD STOP GAME COMPLETLY.
-        return alert("You Lost! Correct word was:" + " " + word);
+       //FIXED: WHEN YOU LOSE AT THE LAST ROW IT ALLOWS ME TO DELETE MY ANSWER AND THAT SHOULD NOT BE ALLOW, IT SHOULD STOP GAME COMPLETLY.
+       setLost(true)
+       return alert("You Lost! Correct word was: " + word);
 
       }else {
         setGuess(userInput[nextRow].join(""))
@@ -84,22 +85,21 @@ function Keyboard() {
       //NEED TO FIX: CHANGE COLOR OF BUTTON FROM YELLOW TO GREEN WHEN IT'S POSITION CHANGES TO CORRECT POSITION
 
 
+
       for (let i = 0; i < 5; i++) {
 
 
-        if (userInput[nextRow][i] === word[i]) {
-
-          console.log("green")
-          setGreen(green => [...green, userInput[nextRow][i]])
-      
-
-        } else if (word.includes(userInput[nextRow][i])) {
+        if (word.includes(userInput[nextRow][i])) {
 
           setYellow(yellow => [...yellow, userInput[nextRow][i]])
           console.log("yellow")
         
 
-        
+        }if (userInput[nextRow][i] === word[i]) {
+
+          console.log("green")
+          setGreen(green => [...green, userInput[nextRow][i]])
+      
 
         } else if (userInput[nextRow][i] !== word[i] && !word.includes(userInput[nextRow][i])) {
 
@@ -124,11 +124,14 @@ function Keyboard() {
     }
     /*************************************************************************** */
 
-    else if (e.target.name === 'DELETE' && nextRow < 5) { //if user wants to delete a letter, continue to next function
+    else if (e.target.name === 'DELETE') { //if user wants to delete a letter, continue to next function
+    
 
-      if (letterPos < 1) return;
+      if (letterPos <= 4 && letterPos >= 1 ){//if current letter position is less than 1 we should stop return and end the function.
+       
       setletterPos(letterPos - 1)// it will go back to the previous letter position; 
       userInput[nextRow][letterPos - 1] = '' //and it will set that position into a blank space for a new letter
+      }
 
     }
 
@@ -139,6 +142,7 @@ function Keyboard() {
     else {
 
       if (letterPos > 4) return; //if current letter position is greater than 4 we should stop return and end the function.
+     
       userInput[nextRow][letterPos] = e.target.name
       setUserInput(userInput)
       setletterPos(letterPos + 1)
@@ -146,18 +150,13 @@ function Keyboard() {
       
     }
 
-
-
-
   }
 
 
   useEffect(() => {
 
-    console.log("Word:", word, "UserInput:", guess)
- 
-
-
+    console.log("Word:", word, "UserInput:", guess, )
+    console.log(letterPos)
   })
 
 
@@ -167,7 +166,7 @@ function Keyboard() {
       <Navbar />
 
       <div className='keyBoard'>
-        <BoardTable isMatching={isMatching} prevRow={prevRow} letterPos={letterPos} nextRow={nextRow} clickData={userInput} guess={guess} word={word} />
+        <BoardTable lost={lost} won={won} prevRow={prevRow} letterPos={letterPos} nextRow={nextRow} clickData={userInput} guess={guess} word={word} />
 
 
         {/*Below we loop through the alphabet array using the javascript map() function.
@@ -193,10 +192,11 @@ function Keyboard() {
                 className='buttonBox'
                 style={{
 
-                  backgroundColor: yellow.includes(letter)
-                     ? 'yellow'
+                  backgroundColor
                     : green.includes(letter)
                       ? 'green'
+                      : yellow.includes(letter)
+                     ? 'yellow'
                       : disabled.includes(letter)
                         ? 'gray'
                         : '#84a98c'
@@ -220,11 +220,11 @@ function Keyboard() {
                 className='buttonBox'
 
                 style={{
-                  backgroundColor:
-                  yellow.includes(letter)
-                      ? 'yellow'
+                  backgroundColor
                       : green.includes(letter)
                         ? 'green'
+                        : yellow.includes(letter)
+                     ? 'yellow'
                         : disabled.includes(letter)
                           ? 'gray'
                           : '#84a98c'
@@ -261,11 +261,11 @@ function Keyboard() {
                 name={letter}
                 className='buttonBox'
                 style={{
-                  backgroundColor:
-                  yellow.includes(letter)
-                      ? 'yellow'
+                  backgroundColor
                       : green.includes(letter)
                         ? 'green'
+                        : yellow.includes(letter)
+                     ? 'yellow'
                         : disabled.includes(letter)
                           ? 'gray'
                           : '#84a98c'
