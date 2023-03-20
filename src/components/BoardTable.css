@@ -1,7 +1,7 @@
 .Table{
    
     width: 60%;
-    height: 60vh;
+    height: 55vh;
     
     display: flex;
     justify-content: center;
@@ -11,38 +11,28 @@
     
 }
 
-
-
-.letters{
-
-    text-align: center;
-    color: black;
-   
-
-
-}
-
-
 .letterBox {
     border: 1px solid #52796f;
-    text-align: center;
-    color: black;
-    
-    margin: 1px;
-
     
     height: 50px;
     width: 50px;
+
+    margin: 2px;
 }
 
-  
+.Letters{
+    text-align: center;
+    color: white;
+    font-size:30px;
+    font-weight: bold;
+
+}
+
 .rows{
     display: flex;
     flex-direction: row;
 
-    margin: 1px;
- 
-   
+    margin: 2px;
    
 }
 

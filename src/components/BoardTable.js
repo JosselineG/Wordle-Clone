@@ -22,17 +22,16 @@ function BoardTable(props) {
                                    //NEED TO FIX: BOX SHOULD BE GRAYED OUT IF THE LETTER IS NOT PART OF THE WORD.
                                 style={{
                                     backgroundColor: props.won && props.nextRow === index 
-                                            ?'green'
+                                            ?'#538D4E'
                                             :(props.guess[idx] === props.word[idx]) && props.prevRow === index
-                                            ?'green'
+                                            ?'#538D4E'
                                             :props.word.includes(props.guess[idx]) && props.prevRow === index
-                                            ?'yellow'
-                                         /*    :(props.guess[idx] !== props.word[idx]) && props.prevRow === index 
-                                            ?'grey' */
+                                            ?'#B59F3B'
                                             :'transparent'
                                 }}>
-                                    
+                                <div className="Letters">
                                 {col}
+                                </div>
                             </div>
 
 

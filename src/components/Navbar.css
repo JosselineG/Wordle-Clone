@@ -1,17 +1,30 @@
 .NavBar{
     width: 100%;
     height: 10vh;
-    background-color: #354f52;
-    top: 0px;
-    
-    color: white;    
 
+   
     display: flex;
-    justify-content: center;
     align-items: center;
   }
  
+.Title{
+  width: 57%;
 
+    
+  display: flex;
+  flex-direction: row;
+  justify-content:flex-end;
+  align-items:flex-end;
+}
+ 
+.switch{
+  width: 40%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content:flex-end;
+  align-items:flex-end;
+}
   .NavBar h1{
     font-size: 30px;
     font-weight: 800;

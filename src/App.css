@@ -1,2 +1,16 @@
+#lightMode .NavBar{
+    background-color: #354f52;
+   
+  }
+#darkMode .NavBar{
+    background-color: #cad2c5;
+  }
 
-
+   
+#lightMode .keyBoard{
+    background-color: #cad2c5;
+  }
+#darkMode .keyBoard{
+    background-color: #354f52;
+    
+}
