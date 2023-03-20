@@ -9,7 +9,15 @@
 
 
 }
+#lightMode .BoardTable{
 
+    color:black
+  }
+  #darkMode .BoardTable{
+  
+    color: white;
+    
+  }
  
 
 .keyboardBody {

@@ -20,6 +20,9 @@ function Navbar(props) {
                     onChange={props.toggleTheme}        
                     style={{backgroundColor: "darkMode"
                         ? "black"
+                        : "white",
+                        color:"darkMode"
+                        ? "black"
                         : "white"}}
                 />
 
