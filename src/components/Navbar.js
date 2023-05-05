@@ -4,6 +4,8 @@ import Switch from '@mui/material/Switch';
 
 function Navbar(props) {
 
+     //NEED TO DO: if in dark mode and we restart the board table the board shouldn't change back to lightmode
+
 
     return (
     
@@ -17,13 +19,12 @@ function Navbar(props) {
  
                 <Switch
                     checked={props.theme === 'darkMode'}
-                    onChange={props.toggleTheme}        
-                    style={{backgroundColor: "darkMode"
+                    onChange={props.toggleTheme}       
+                    color="default" 
+                    style={{color: props.theme === 'darkMode'
                         ? "black"
                         : "white",
-                        color:"darkMode"
-                        ? "black"
-                        : "white"}}
+                    }}
                 />
 
             </div>

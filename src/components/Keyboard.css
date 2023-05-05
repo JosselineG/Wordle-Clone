@@ -21,13 +21,38 @@
  
 
 .keyboardBody {
+    width: 70%;
+    height: 30vh;
 
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: center;
     align-items: center; 
   
 }
+
+
+.AMEkeyboard {
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+  
+}
+
+.SPAkeyboard {
+    width: 20%;
+    height: 30vh;
+   
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;  
+    left: 10%;
+    
+}
+
 
 
 .buttonBox {
