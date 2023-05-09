@@ -19,7 +19,7 @@ function BoardTable(props) {
                         {row.map((col, idx) => (
 
                             <div className="letterBox" key={idx}
-                                //NEED TO FIX: BOX SHOULD BE GRAYED OUT IF THE LETTER IS NOT PART OF THE WORD.
+                                //NEED TO DO: BOX SHOULD BE GRAYED OUT IF THE LETTER IS NOT PART OF THE WORD.
 
 
                                 style={{

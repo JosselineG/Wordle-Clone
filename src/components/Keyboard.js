@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import BoardTable from './BoardTable'
 import './Keyboard.css'
 import { listOfWords } from './spanish-word'
-import { NextPlanOutlined } from '@mui/icons-material'
+
 
 
 function Keyboard() {
@@ -19,7 +19,6 @@ function Keyboard() {
 
 
   const [letterPos, setletterPos] = useState(0) //letter position starting at 0
-
   const [nextRow, setNextRow] = useState(0) //row position starting at 0
   const [prevRow, setprevRow] = useState(0) //previous row position starting at 0
 
@@ -31,8 +30,7 @@ function Keyboard() {
     ['', '', '', '', ''],
     ['', '', '', '', '']])
 
-
-  const [word] = useState(listOfWords[Math.floor(Math.random() * listOfWords.length)])//word that will be used to guess
+  const [word, setWord] = useState(listOfWords[Math.floor(Math.random() * listOfWords.length)])//word that will be used to guess
   const [guess, setGuess] = useState("")
   const [won, setWon] = useState(false);
   const [lost, setLost] = useState(false);
@@ -65,73 +63,82 @@ function Keyboard() {
       /* Once User has enter all 5 letter we should stop return and end function  */
       if (letterPos !== 5) return;
 
-      /* ---------SETTING KEYBOARD COLORS----------*/
-      for (let i = 0; i <= 5; i++) {
+      /* Using the .find method on the array of listOfWords to check if the word the user inputs is real.
+        This way we avoid that the user enters repeated letters or words that don't make sense, but
+        there might be real words that aren't listed in the array. */
+      if (listOfWords.find((word) => word === userInput[nextRow].join(""))) {
 
 
-        if (word.includes(userInput[nextRow][i])) {
-
-          setYellow(yellow => [...yellow, userInput[nextRow][i]])
-
-        } if (userInput[nextRow][i] === word[i]) {
-
-          setGreen(green => [...green, userInput[nextRow][i]])
-
-        } else if (userInput[nextRow][i] !== word[i] && !word.includes(userInput[nextRow][i])) {
-
-          setDisabled(disabled => [...disabled, userInput[nextRow][i]])
-
-        }
-      }
+        //NEED TO FIX: IF THERE ARE REPEATED LETTERS AND GUESS RIGHT ONE TIME IT SHOULD STAY YELLOW IN KEYBOARD.  
+        
+        /* ---------SETTING KEYBOARD COLORS----------*/
+        for (let i = 0; i <= 5; i++) {
 
 
-      /* Check 1:WON:  If the users input matches the word,
-      return so it stops the whole function by alerting that the game has been won;  */
-      if (userInput[nextRow].join("") === word) {
+          if (word.includes(userInput[nextRow][i])) {
 
-        setWon(true)
-        return alert("You Won!");
+            setYellow(yellow => [...yellow, userInput[nextRow][i]])
 
-      }
-      /* Check 2::  If user hasn't won or lost 
-      set the users guess to setGuess(). This will check in the BoardTable component if
-      each letter is either correct(green, right letter right position),
-      wrong(transparent,wrong position),
-      almost guessed(yellow,right letter wrong position). ;  */
-      else {
+          } if (userInput[nextRow][i] === word[i]) {
 
-        if (nextRow <= 4) {
+            setGreen(green => [...green, userInput[nextRow][i]])
 
-          setGuess(userInput[nextRow].join(""))
-          setprevRow(nextRow)
+          } else if (userInput[nextRow][i] !== word[i] && !word.includes(userInput[nextRow][i])) {
 
-          if (nextRow !== "") {
-
-            setletterPos(0) //and set the letter position back to 0
-            setNextRow(nextRow + 1) //increase the row position
+            setDisabled(disabled => [...disabled, userInput[nextRow][i]])
 
           }
         }
-        else if (nextRow === 5) {
 
-          setGuess(userInput[nextRow].join(""))
-          setprevRow(nextRow)
-          /* Check 2:LOST:  If User is in the last row check to see if the word does not equal the user inputs,
-             return so it stops the whole function;  */
-          if (nextRow === 5 && userInput[nextRow].join("") !== word) {
-            setLost(true)
-            return alert("You Lost! Correct word was: " + word);
-          }
+
+
+        /* Check 1:WON:  If the users input matches the word,
+        return so it stops the whole function by alerting that the game has been won;  */
+        if (userInput[nextRow].join("") === word) {
+
+          setWon(true)
+          return alert("You Won!");
+
         }
-        /*.JOIN("") :: WE remove the commas and convert it into a string, 
-        users guess becomes a string and setguess(). */
+        /* Check 2::  If user hasn't won or lost 
+        set the users guess to setGuess(). This will check in the BoardTable component if
+        each letter is either correct(green, right letter right position),
+        wrong(transparent,wrong position),
+        almost guessed(yellow,right letter wrong position). ;  */
+        else {
+
+          if (nextRow <= 4) {
+
+            setGuess(userInput[nextRow].join(""))
+            setprevRow(nextRow)
+
+            if (nextRow !== "") {
+
+              setletterPos(0) //and set the letter position back to 0
+              setNextRow(nextRow + 1) //increase the row position
+
+            }
+          }
+          else if (nextRow === 5) {
+
+            setGuess(userInput[nextRow].join(""))
+            setprevRow(nextRow)
+            /* Check 2:LOST:  If User is in the last row check to see if the word does not equal the user inputs,
+               return so it stops the whole function;  */
+            if (nextRow === 5 && userInput[nextRow].join("") !== word) {
+              setLost(true)
+              return alert("Perdiste! La palabra correcta era: " + word);
+            }
+          }
+          /*.JOIN("") :: WE remove the commas and convert it into a string, 
+          users guess becomes a string and setguess(). */
+        }
+
+      } else {
+        alert("No esta en la lista de palabras")
       }
 
-
-      //NEED TO FIX: IF THERE ARE REPEATED LETTERS AND GUESS RIGHT ONE TIME IT SHOULD STAY YELLOW IN KEYBOARD.
-
-      //NEED TO DO: Once User has won/loss create a play again button and reset the game board.
-      //NEED TO DO: SHOULD ONLY ALLOW REAL WORDS NOT FAKE ONES.
+    
 
 
     }
@@ -152,6 +159,29 @@ function Keyboard() {
       }
 
 
+
+    } else if (e.target.name === 'retry') {
+      console.log("retry button clicked")
+
+/* User is able to reset the game once they win or lose to continue playing */
+      setWord(listOfWords[Math.floor(Math.random() * listOfWords.length)])
+      setUserInput([['', '', '', '', ''],
+      ['', '', '', '', ''],
+      ['', '', '', '', ''],
+      ['', '', '', '', ''],
+      ['', '', '', '', ''],
+      ['', '', '', '', '']])
+      setGuess("")
+      setWon(false);
+      setLost(false);
+
+      setDisabled([]);
+      setYellow([]);
+      setGreen([]);
+      setletterPos(0)
+
+      setNextRow(0)
+      setprevRow(0)
 
     }
 
@@ -179,20 +209,15 @@ function Keyboard() {
 
 
   useEffect(() => {
-
-
-
-
-    console.log("Word:", word, "UserInput:", guess)
-    /*     console.log(letterPos, nextRow , prevRow) */
-
+    console.log("UserInput:", guess)
   })
 
 
   return (
 
     <div className='keyBoard'>
-      <BoardTable lost={lost} won={won} prevRow={prevRow} letterPos={letterPos} nextRow={nextRow} clickData={userInput} guess={guess} word={word} />
+
+      <BoardTable won={won} prevRow={prevRow} nextRow={nextRow} clickData={userInput} guess={guess} word={word} />
 
 
       {/*Below we loop through the alphabet array using the javascript map() function.
@@ -202,6 +227,16 @@ function Keyboard() {
       Keys should be given to the elements inside the array to give the elements
     a stable identity. We use the index as a key since we don't have stable ID's for each element. */}
 
+      {won || lost
+        ? <button
+          onClick={handleClick}
+          onChange={handleChange}
+          name='retry'
+          className='RetryButton'>
+          Reiniciar
+        </button>
+        : null
+      }
 
       <div className='keyboardBody'>
 
