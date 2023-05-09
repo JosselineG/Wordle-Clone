@@ -20,9 +20,6 @@ function BoardTable(props) {
 
                             <div className="letterBox" key={idx}
 
-                            /* NEED TO FIX :: When a letter ex.(A) is in the right position 
-                            and there is only one in the word and user inputs the letter twice 
-                            it should only be green when is in the right spot as for the other should be greyed out */
                                 style={{
 
                                     backgroundColor: props.won && props.nextRow === index

@@ -35,6 +35,8 @@ function Keyboard() {
   const [won, setWon] = useState(false);
   const [lost, setLost] = useState(false);
 
+  const [close, setClose] = useState(false)
+
   const [disabled, setDisabled] = useState([]);
   const [yellow, setYellow] = useState([]);
   const [green, setGreen] = useState([]);
@@ -46,6 +48,7 @@ function Keyboard() {
     setAlphabet2(...alphabet2, [e.target.name])
     setAlphabet3(...alphabet3, [e.target.name])
     setAlphabet4(...alphabet4, [e.target.name])
+
   }
 
 
@@ -69,7 +72,7 @@ function Keyboard() {
       if (listOfWords.find((word) => word === userInput[nextRow].join(""))) {
 
 
-      
+
         /* ---------SETTING KEYBOARD COLORS----------*/
         for (let i = 0; i <= 5; i++) {
 
@@ -96,8 +99,6 @@ function Keyboard() {
         if (userInput[nextRow].join("") === word) {
 
           setWon(true)
-          return alert("You Won!");
-
         }
         /* Check 2::  If user hasn't won or lost 
         set the users guess to setGuess(). This will check in the BoardTable component if
@@ -138,7 +139,7 @@ function Keyboard() {
         alert("No esta en la lista de palabras")
       }
 
-    
+
 
 
     }
@@ -163,7 +164,7 @@ function Keyboard() {
     } else if (e.target.name === 'retry') {
       console.log("retry button clicked")
 
-/* User is able to reset the game once they win or lose to continue playing */
+      /* User is able to reset the game once they win or lose to continue playing */
       setWord(listOfWords[Math.floor(Math.random() * listOfWords.length)])
       setUserInput([['', '', '', '', ''],
       ['', '', '', '', ''],
@@ -207,15 +208,19 @@ function Keyboard() {
 
   }
 
+  const handleClose = () => {
+    setClose(true)
+  }
 
   useEffect(() => {
-    console.log("UserInput:", guess, word)
+    console.log("UserInput:", guess)
   })
 
 
   return (
 
     <div className='keyBoard'>
+
 
       <BoardTable won={won} prevRow={prevRow} nextRow={nextRow} clickData={userInput} guess={guess} word={word} />
 
@@ -227,160 +232,215 @@ function Keyboard() {
       Keys should be given to the elements inside the array to give the elements
     a stable identity. We use the index as a key since we don't have stable ID's for each element. */}
 
-      {won || lost
-        ? <button
-          onClick={handleClick}
-          onChange={handleChange}
-          name='retry'
-          className='RetryButton'>
-          Reiniciar
-        </button>
+      {won
+        ? <div className='PopUpMessage'>
+          <h1>¡Felicitaciones! Has ganado!</h1>
+          <button
+            onClick={handleClick}
+            onChange={handleChange}
+            name='retry'
+            className='retryCloseButton'>
+            Reiniciar
+          </button>
+        </div>
         : null
       }
 
-      <div className='keyboardBody'>
 
-        <div className='AMEkeyboard'>
-          <div className='test1'>
+      {lost
+        ? <div className='PopUpMessage'>
+          <h1>¡Perdiste! La palabra correcta era: {word}</h1>
+          <button
+            onClick={handleClick}
+            onChange={handleChange}
+            name='retry'
+            className='retryCloseButton'>
+            Reiniciar
+          </button>
+        </div>
+        : null
+      }
 
-            {alphabet1.map((letter, index) => (
 
+      {close
+
+        ?
+
+
+        <div className='keyboardBody'>
+
+          <div className='AMEkeyboard'>
+            <div className='test1'>
+
+              {alphabet1.map((letter, index) => (
+
+                <button
+                  key={index}
+                  onClick={handleClick}
+                  onChange={handleChange}
+                  disabled={disabled.includes(letter)}
+                  name={letter}
+                  className='buttonBox'
+                  style={{
+
+                    backgroundColor
+                      : green.includes(letter)
+                        ? 'green'
+                        : yellow.includes(letter)
+                          ? 'yellow'
+                          : disabled.includes(letter)
+                            ? 'gray'
+                            : '#84a98c'
+                  }}>
+
+                  {letter}
+                </button>
+
+              ))}
+
+            </div>
+            <div className='test2'>
+              {alphabet2.map((letter, index) => (
+
+                <button
+                  key={index}
+                  onClick={handleClick}
+                  onChange={handleChange}
+                  disabled={disabled.includes(letter)}
+                  name={letter}
+                  className='buttonBox'
+
+                  style={{
+                    backgroundColor
+                      : green.includes(letter)
+                        ? 'green'
+                        : yellow.includes(letter)
+                          ? 'yellow'
+                          : disabled.includes(letter)
+                            ? 'gray'
+                            : '#84a98c'
+                  }}
+                >
+
+                  {letter}
+                </button>
+
+
+              ))}
+            </div>
+
+
+            <div className='test3'>
               <button
-                key={index}
+
                 onClick={handleClick}
                 onChange={handleChange}
-                disabled={disabled.includes(letter)}
-                name={letter}
-                className='buttonBox'
-                style={{
-
-                  backgroundColor
-                    : green.includes(letter)
-                      ? 'green'
-                      : yellow.includes(letter)
-                        ? 'yellow'
-                        : disabled.includes(letter)
-                          ? 'gray'
-                          : '#84a98c'
-                }}>
-
-                {letter}
-              </button>
-
-            ))}
-
-          </div>
-          <div className='test2'>
-            {alphabet2.map((letter, index) => (
-
-              <button
-                key={index}
-                onClick={handleClick}
-                onChange={handleChange}
-                disabled={disabled.includes(letter)}
-                name={letter}
-                className='buttonBox'
-
-                style={{
-                  backgroundColor
-                    : green.includes(letter)
-                      ? 'green'
-                      : yellow.includes(letter)
-                        ? 'yellow'
-                        : disabled.includes(letter)
-                          ? 'gray'
-                          : '#84a98c'
-                }}
+                name='ENTER'
+                className='buttonBoxD'
               >
-
-                {letter}
+                ENTER
               </button>
 
-
-            ))}
-          </div>
+              {alphabet3.map((letter, index) => (
 
 
-          <div className='test3'>
-            <button
+                <button
+                  key={index}
+                  onClick={handleClick}
+                  onChange={handleChange}
+                  disabled={disabled.includes(letter)}
+                  name={letter}
+                  className='buttonBox'
+                  style={{
+                    backgroundColor
+                      : green.includes(letter)
+                        ? 'green'
+                        : yellow.includes(letter)
+                          ? 'yellow'
+                          : disabled.includes(letter)
+                            ? 'gray'
+                            : '#84a98c'
+                  }} >
+                  {letter}
+                </button>
 
-              onClick={handleClick}
-              onChange={handleChange}
-              name='ENTER'
-              className='buttonBoxD'
-            >
-              ENTER
-            </button>
 
-            {alphabet3.map((letter, index) => (
-
+              ))}
 
               <button
-                key={index}
+
                 onClick={handleClick}
                 onChange={handleChange}
-                disabled={disabled.includes(letter)}
-                name={letter}
-                className='buttonBox'
-                style={{
-                  backgroundColor
-                    : green.includes(letter)
-                      ? 'green'
-                      : yellow.includes(letter)
-                        ? 'yellow'
-                        : disabled.includes(letter)
-                          ? 'gray'
-                          : '#84a98c'
-                }} >
-                {letter}
+                name='DELETE'
+                className='buttonBoxD'>
+                DELETE
               </button>
 
-
-            ))}
-
-            <button
-
-              onClick={handleClick}
-              onChange={handleChange}
-              name='DELETE'
-              className='buttonBoxD'>
-              DELETE
-            </button>
-
+            </div>
           </div>
+
+
+          <div className='SPAkeyboard'>
+            <div className='test4'>
+              {alphabet4.map((letter, index) => (
+
+
+                <button
+                  key={index}
+                  onClick={handleClick}
+                  onChange={handleChange}
+                  disabled={disabled.includes(letter)}
+                  name={letter}
+                  className='buttonBox'
+                  style={{
+                    backgroundColor
+                      : green.includes(letter)
+                        ? 'green'
+                        : yellow.includes(letter)
+                          ? 'yellow'
+                          : disabled.includes(letter)
+                            ? 'gray'
+                            : '#84a98c'
+                  }} >
+                  {letter}
+                </button>
+
+              ))}
+            </div>
+          </div>
+
         </div>
 
+        : <div className='RulesMessage'>
+          <h1>Cómo jugar</h1>
+          <ul>
+            <li>
+              Tienes 6 intentos para adivinar la palabra correcta.
+            </li>
+            <li>
+              Cada fila requiere una palabra válida de 5 letras.
+            </li>
+            <li>
+              El color del cuadro representa qué tan cerca estuvo su suposición de la palabra.
+            </li>
+          </ul>
 
-        <div className='SPAkeyboard'>
-          <div className='test4'>
-            {alphabet4.map((letter, index) => (
-
-
-              <button
-                key={index}
-                onClick={handleClick}
-                onChange={handleChange}
-                disabled={disabled.includes(letter)}
-                name={letter}
-                className='buttonBox'
-                style={{
-                  backgroundColor
-                    : green.includes(letter)
-                      ? 'green'
-                      : yellow.includes(letter)
-                        ? 'yellow'
-                        : disabled.includes(letter)
-                          ? 'gray'
-                          : '#84a98c'
-                }} >
-                {letter}
-              </button>
-
-            ))}
+          <div>
+            <div>Cuadro verde significa que la letra está en la posicion correcta.</div>
+            <div>Cuadro amarilla significa que la letra pertenece en la palabra pero está en la posicion incorrecta.</div>
+            <div>Cuadro gris significa que la letra no pertenece en la palabra.</div>
           </div>
+
+          <button
+            className='retryCloseButton'
+            onClick={handleClose}
+            onChange={handleChange}>
+            Cerrar
+          </button>
+
         </div>
 
-      </div>
+      }
     </div>
   )
 }

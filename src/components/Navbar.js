@@ -4,9 +4,6 @@ import Switch from '@mui/material/Switch';
 
 function Navbar(props) {
 
-     //NEED TO DO: if in dark mode and we restart the board table the board shouldn't change back to lightmode
-
-
     return (
     
         <nav className="NavBar">
