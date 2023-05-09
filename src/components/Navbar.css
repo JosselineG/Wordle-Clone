@@ -34,3 +34,17 @@
   
   }
   
+
+@media all and (max-width:556px) {
+
+  .Title{
+    width: auto;
+    padding: 2%;
+  
+  }
+  .Title h1{
+  font-size: 8vw;
+  
+  }
+
+}

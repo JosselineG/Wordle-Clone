@@ -213,7 +213,7 @@ function Keyboard() {
   }
 
   useEffect(() => {
-    console.log("UserInput:", guess)
+    console.log("UserInput:", guess,word)
   })
 
 
