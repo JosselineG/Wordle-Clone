@@ -19,18 +19,21 @@ function BoardTable(props) {
                         {row.map((col, idx) => (
 
                             <div className="letterBox" key={idx}
-                                //NEED TO DO: BOX SHOULD BE GRAYED OUT IF THE LETTER IS NOT PART OF THE WORD.
 
-
+                            /* NEED TO FIX :: When a letter ex.(A) is in the right position 
+                            and there is only one in the word and user inputs the letter twice 
+                            it should only be green when is in the right spot as for the other should be greyed out */
                                 style={{
 
                                     backgroundColor: props.won && props.nextRow === index
                                         ? '#538D4E'
-                                        : (props.guess[idx] === props.word[idx]) && props.prevRow  === index
+                                        : (props.guess[idx] === props.word[idx]) && props.prevRow === index
                                             ? '#538D4E'
                                             : props.word.includes(props.guess[idx]) && props.prevRow === index
                                                 ? '#B59F3B'
-                                                : 'transparent'
+                                                : !props.word.includes(props.guess) && (props.guess !== props.word) && props.prevRow === index
+                                                    ? "grey"
+                                                    : 'transparent'
 
 
                                 }}>

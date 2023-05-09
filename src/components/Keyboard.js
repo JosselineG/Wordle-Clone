@@ -69,8 +69,7 @@ function Keyboard() {
       if (listOfWords.find((word) => word === userInput[nextRow].join(""))) {
 
 
-        //NEED TO FIX: IF THERE ARE REPEATED LETTERS AND GUESS RIGHT ONE TIME IT SHOULD STAY YELLOW IN KEYBOARD.  
-        
+      
         /* ---------SETTING KEYBOARD COLORS----------*/
         for (let i = 0; i <= 5; i++) {
 
@@ -119,6 +118,7 @@ function Keyboard() {
 
             }
           }
+
           else if (nextRow === 5) {
 
             setGuess(userInput[nextRow].join(""))
@@ -209,7 +209,7 @@ function Keyboard() {
 
 
   useEffect(() => {
-    console.log("UserInput:", guess)
+    console.log("UserInput:", guess, word)
   })
 
 
