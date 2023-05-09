@@ -183,10 +183,10 @@
         height: 10vw;
         margin: 4px;
         font-size: 2vw;
-      
+
     }
 
-    .keyBoard{
+    .keyBoard {
         height: 90vh;
         justify-content: space-evenly;
     }
@@ -215,30 +215,30 @@
         justify-content: center;
         align-items: flex-start;
         flex-direction: row;
-        
+
 
     }
 
-    
-.PopUpMessage {
-    padding: 10px;
-    width: 60%;
-    height: auto;
 
-    font-size: 4vw;
-}
+    .PopUpMessage {
+        padding: 10px;
+        width: 60%;
+        height: auto;
 
-.retryCloseButton {
-    width: auto;
-    height: 6vh;
-}
+        font-size: 4vw;
+    }
 
-.RulesMessage {
-    padding: 20px;
-    width: 80%;
-    height: auto;
+    .retryCloseButton {
+        width: auto;
+        height: 6vh;
+    }
 
-    font-size: 4vw;
-}
+    .RulesMessage {
+        padding: 20px;
+        width: 80%;
+        height: auto;
+
+        font-size: 4vw;
+    }
 
 }
