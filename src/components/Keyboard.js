@@ -213,7 +213,7 @@ function Keyboard() {
   }
 
   useEffect(() => {
-    console.log("UserInput:", guess,word)
+    console.log("UserInput:", guess)
   })
 
 
@@ -278,7 +278,7 @@ function Keyboard() {
                   key={index}
                   onClick={handleClick}
                   onChange={handleChange}
-                  disabled={disabled.includes(letter)}
+                /*   disabled={disabled.includes(letter)} */
                   name={letter}
                   className='buttonBox'
                   style={{
@@ -306,7 +306,7 @@ function Keyboard() {
                   key={index}
                   onClick={handleClick}
                   onChange={handleChange}
-                  disabled={disabled.includes(letter)}
+                 /*  disabled={disabled.includes(letter)} */
                   name={letter}
                   className='buttonBox'
 
@@ -348,7 +348,7 @@ function Keyboard() {
                   key={index}
                   onClick={handleClick}
                   onChange={handleChange}
-                  disabled={disabled.includes(letter)}
+                  /* disabled={disabled.includes(letter)} */
                   name={letter}
                   className='buttonBox'
                   style={{
@@ -389,7 +389,7 @@ function Keyboard() {
                   key={index}
                   onClick={handleClick}
                   onChange={handleChange}
-                  disabled={disabled.includes(letter)}
+                  /* disabled={disabled.includes(letter)} */
                   name={letter}
                   className='buttonBox'
                   style={{
@@ -415,7 +415,8 @@ function Keyboard() {
           <h1>Cómo jugar</h1>
           <ul>
             <li>
-              Tienes 6 intentos para adivinar la palabra correcta.
+              Las palabras que estan en la lista comienza de A-G.
+              Tienes 6 intentos para adivinar la palabra correcta. 
             </li>
             <li>
               Cada fila requiere una palabra válida de 5 letras.
